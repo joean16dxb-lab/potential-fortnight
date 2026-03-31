@@ -1,4 +1,18 @@
-<link rel="stylesheet" href="style.css">
+{
+  "name": "vapor-sense-ai",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {},
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}<link rel="stylesheet" href="style.css">
 <script src="app.js"></script>
 {
   "name": "vapor-sense-ai",
