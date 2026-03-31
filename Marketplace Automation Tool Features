@@ -1,0 +1,289 @@
+{
+  "runSettings": {
+    "temperature": 1.0,
+    "model": "models/gemini-3-flash-preview",
+    "topP": 0.95,
+    "topK": 64,
+    "maxOutputTokens": 65536,
+    "safetySettings": [{
+      "category": "HARM_CATEGORY_HARASSMENT",
+      "threshold": "OFF"
+    }, {
+      "category": "HARM_CATEGORY_HATE_SPEECH",
+      "threshold": "OFF"
+    }, {
+      "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+      "threshold": "OFF"
+    }, {
+      "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+      "threshold": "OFF"
+    }],
+    "enableCodeExecution": false,
+    "enableSearchAsATool": true,
+    "enableBrowseAsATool": false,
+    "enableAutoFunctionResponse": false,
+    "thinkingBudget": -1,
+    "googleSearch": {
+    },
+    "outputResolution": "1K",
+    "thinkingLevel": "THINKING_HIGH",
+    "enableImageSearch": false,
+    "enableGoogleMaps": false
+  },
+  "systemInstruction": {
+  },
+  "chunkedPrompt": {
+    "chunks": [{
+      "text": "\n---\n\n## TECH STACK\n- Frontend: React 18 + TypeScript + Tailwind CSS\n- Backend: Node.js + Express (or Firebase Functions)\n- Storage: Firebase Storage (or Supabase)\n- Database: Firestore (or PostgreSQL)\n- Auth: Firebase Auth (Google + Email)\n- AI/ML: Google Cloud Vision API + Gemini API for market detection\n\n---\n\n## CORE FEATURES\n\n### 1. MARKET AUTO-DETECT ENGINE\n- Integrate Google Cloud Vision API or Gemini 1.5 Pro to analyze uploaded \n  product images or documents\n- Auto-detect product category, price range, target audience, \n  and best-fit marketplace (eBay, Etsy, Amazon, Shopify, etc.)\n- Display a confidence score (0–100%) per detected market\n- Allow user to override auto-detected market before proceeding\n\n### 2. FILE UNLOADER (Upload System)\n- Drag-and-drop upload zone accepting: images (JPG, PNG, WEBP), \n  video (MP4, MOV), PDF, CSV product lists\n- Batch upload support (up to 50 files simultaneously)\n- Real-time upload progress bar per file\n- File preview thumbnails after upload\n- Auto-categorize files by type (image, video, document)\n- Store files in Firebase Storage with organized folder structure: \n  /uploads/{userId}/{sessionId}/{filename}\n\n### 3. PROCESSING CONTROLS PANEL\nBuild a sidebar control panel with:\n- [ ] Market Selector: dropdown of detected + manual markets\n- [ ] Product Title Generator: AI-powered using Gemini API\n- [ ] Description Writer: auto-generate SEO product descriptions\n- [ ] Pricing Suggester: based on market + category data\n- [ ] Hashtag/Tag Generator for social platforms\n- [ ] Image Enhancer toggle (brightness, contrast, background removal)\n- [ ] Watermark toggle with custom text input\n- [ ] Format Converter: resize output for each platform \n      (1:1 for Instagram, 16:9 for YouTube, etc.)\n- Processing queue with start/pause/cancel controls\n- Live processing log (console-style output panel)\n\n### 4. DOWNLOAD BUTTON + EXPORT SYSTEM\n- Single-file download button per processed asset\n- \"Download All\" button → generates ZIP archive client-side using JSZip\n- Export format selector: original, PNG, WEBP, MP4, PDF\n- Export presets per platform: \"Export for Shopify\", \n  \"Export for Etsy\", \"Export for Instagram\"\n- Download history panel showing past exports with timestamps\n\n### 5. MULTIMEDIA SHARING PLATFORM (Final Output Hub)\n- Gallery view of all processed outputs (grid + list toggle)\n- One-click share links: generate a public URL per asset or full session\n- Direct share buttons for: Instagram, Facebook, TikTok, Pinterest, \n  Twitter/X, WhatsApp, Email\n- Embed code generator (iframe snippet) for each asset\n- QR Code generator for each product/session link\n- \"Publish to Marketplace\" button (webhook-ready for Shopify/WooCommerce API)\n- Collaboration: invite team members via email to view/download session\n\n---\n\n## UI/UX REQUIREMENTS\n- Dark mode by default with light mode toggle\n- Responsive: mobile-first, fully functional on tablet and desktop\n- Left sidebar: navigation (Upload, Process, Gallery, Share, Settings)\n- Main content area: dynamic based on active step\n- Top bar: user avatar, session name (editable), notifications bell\n- Step indicator: Upload → Detect → Process → Export → Share (5-step wizard)\n- Toast notifications for all async actions\n- Loading skeletons for all data-fetching states\n- Empty states with clear CTAs when no files are uploaded\n\n---\n\n## DATA MODELS\n\n### Session\n{\n  id: string,\n  userId: string,\n  name: string,\n  createdAt: timestamp,\n  status: \u0027uploading\u0027 | \u0027detecting\u0027 | \u0027processing\u0027 | \u0027complete\u0027,\n  detectedMarkets: Market[],\n  files: FileAsset[],\n  exports: Export[]\n}\n\n### FileAsset\n{\n  id: string,\n  sessionId: string,\n  originalName: string,\n  type: \u0027image\u0027 | \u0027video\u0027 | \u0027document\u0027,\n  storageUrl: string,\n  thumbnailUrl: string,\n  detectedCategory: string,\n  processingStatus: \u0027pending\u0027 | \u0027processing\u0027 | \u0027done\u0027 | \u0027error\u0027,\n  processedOutputs: ProcessedOutput[]\n}\n\n### Market\n{\n  name: string,\n  platform: string,\n  confidenceScore: number,\n  suggestedPrice: number,\n  tags: string[]\n}\n\n---\n\n## API ROUTES (Express)\nPOST   /api/sessions              → create new session\nGET    /api/sessions/:id          → get session details\nPOST   /api/upload                → handle file upload to storage\nPOST   /api/detect                → run market auto-detection on files\nPOST   /api/process               → start processing job with selected controls\nGET    /api/process/:jobId/status → poll processing job status\nPOST   /api/export                → generate export package\nGET    /api/share/:sessionId      → get public share data for a session\n\n---\n\n## SECURITY \u0026 PERFORMANCE\n- All routes protected with Firebase Auth JWT middleware\n- File size limits: images 20MB, video 500MB, documents 50MB\n- Rate limiting: 100 API requests/minute per user\n- Lazy load all gallery images\n- Web Workers for client-side ZIP generation (non-blocking UI)\n- Error boundaries on all major React component trees\n\n---\n\nBuild the complete application with all components, routes, and \nFirebase configuration. Start with the main App layout, then \nimplement each feature module in order: Upload → Detect → Process \n→ Export → Share.\n",
+      "role": "user",
+      "tokenCount": 1288,
+      "createTime": "2026-03-27T06:08:45.455Z"
+    }, {
+      "text": "**Defining Project Scope**\n\nOkay, I\u0027m currently focused on defining the project\u0027s broad scope for *MarketFlow AI*. The core is a full application build from detailed specs. I\u0027ve broken down frontend tech into React 18, TypeScript, Tailwind CSS, Lucide icons, and Framer Motion. I\u0027m moving toward identifying essential features and use cases to create a solid framework.\n\n\n",
+      "role": "model",
+      "tokenCount": 483,
+      "isThought": true,
+      "parts": [{
+        "text": "**Defining Project Scope**\n\nOkay, I\u0027m currently focused on defining the project\u0027s broad scope for *MarketFlow AI*. The core is a full application build from detailed specs. I\u0027ve broken down frontend tech into React 18, TypeScript, Tailwind CSS, Lucide icons, and Framer Motion. I\u0027m moving toward identifying essential features and use cases to create a solid framework.\n\n\n",
+        "thought": true
+      }],
+      "createTime": "2026-03-27T06:08:45.455Z"
+    }, {
+      "text": "This is a comprehensive technical blueprint and implementation guide for your **MarketFlow AI** platform. Given the scale, I will provide the core architecture, the essential React components for the 5-step wizard, and the backend integration logic for the AI Market Detection.\n\n### 1. Project Structure\n```text\n/src\n  /api             # Backend Express routes \u0026 AI logic\n  /components      # Reusable UI (Button, Input, Dropzone)\n  /context         # Session \u0026 Auth state management\n  /features        # Core modules (Upload, Detect, Process, Export, Share)\n  /hooks           # Custom hooks (useProcessing, useMarketDetect)\n  /services        # Firebase \u0026 Gemini API config\n  /types           # TypeScript interfaces (Session, FileAsset, etc.)\n  App.tsx          # Main Router \u0026 Layout\n```\n\n### 2. Data Models (Typescript)\n`src/types/index.ts`\n```typescript\nexport interface Market {\n  name: string;\n  platform: \u0027eBay\u0027 | \u0027Etsy\u0027 | \u0027Amazon\u0027 | \u0027Shopify\u0027 | \u0027Social\u0027;\n  confidenceScore: number;\n  suggestedPrice: number;\n  tags: string[];\n}\n\nexport interface FileAsset {\n  id: string;\n  sessionId: string;\n  originalName: string;\n  type: \u0027image\u0027 | \u0027video\u0027 | \u0027document\u0027;\n  storageUrl: string;\n  thumbnailUrl: string;\n  detectedCategory?: string;\n  processingStatus: \u0027pending\u0027 | \u0027processing\u0027 | \u0027done\u0027 | \u0027error\u0027;\n  processedOutputs: string[]; // URLs\n}\n\nexport interface Session {\n  id: string;\n  userId: string;\n  name: string;\n  createdAt: number;\n  status: \u0027uploading\u0027 | \u0027detecting\u0027 | \u0027processing\u0027 | \u0027complete\u0027;\n  detectedMarkets: Market[];\n  files: FileAsset[];\n}\n```\n\n### 3. Step 1 \u0026 2: File Unloader \u0026 Detect Engine\nThis component handles the drag-and-drop and triggers the AI analysis via a backend proxy.\n\n`src/features/Upload/UploadZone.tsx`\n```tsx\nimport React, { useCallback, useState } from \u0027react\u0027;\nimport { useDropzone } from \u0027react-dropzone\u0027;\nimport { storage } from \u0027../../services/firebase\u0027;\nimport { ref, uploadBytesResumable, getDownloadURL } from \u0027firebase/storage\u0027;\nimport { Upload, FileText, Image as ImageIcon, Loader2 } from \u0027lucide-react\u0027;\n\nexport const UploadZone \u003d ({ sessionId, onComplete }: { sessionId: string, onComplete: () \u003d\u003e void }) \u003d\u003e {\n  const [uploads, setUploads] \u003d useState\u003cRecord\u003cstring, number\u003e\u003e({});\n\n  const onDrop \u003d useCallback(async (acceptedFiles: File[]) \u003d\u003e {\n    const uploadPromises \u003d acceptedFiles.map(async (file) \u003d\u003e {\n      const storageRef \u003d ref(storage, `uploads/${sessionId}/${file.name}`);\n      const uploadTask \u003d uploadBytesResumable(storageRef, file);\n\n      return new Promise((resolve, reject) \u003d\u003e {\n        uploadTask.on(\u0027state_changed\u0027, \n          (snapshot) \u003d\u003e {\n            const progress \u003d (snapshot.bytesTransferred / snapshot.totalBytes) * 100;\n            setUploads(prev \u003d\u003e ({ ...prev, [file.name]: progress }));\n          },\n          reject,\n          async () \u003d\u003e {\n            const url \u003d await getDownloadURL(uploadTask.snapshot.ref);\n            // Call Backend to save FileAsset to Firestore\n            resolve(url);\n          }\n        );\n      });\n    });\n\n    await Promise.all(uploadPromises);\n    onComplete();\n  }, [sessionId]);\n\n  const { getRootProps, getInputProps, isDragActive } \u003d useDropzone({ onDrop });\n\n  return (\n    \u003cdiv {...getRootProps()} className\u003d\"border-2 border-dashed border-slate-700 rounded-xl p-12 bg-slate-900/50 hover:bg-slate-800/50 transition-all cursor-pointer\"\u003e\n      \u003cinput {...getInputProps()} /\u003e\n      \u003cdiv className\u003d\"flex flex-col items-center\"\u003e\n        \u003cUpload className\u003d\"w-12 h-12 text-blue-500 mb-4\" /\u003e\n        \u003cp className\u003d\"text-lg font-medium\"\u003eDrag \u0026 drop product assets\u003c/p\u003e\n        \u003cp className\u003d\"text-slate-400 text-sm\"\u003eImages, Videos, PDFs (Max 50 files)\u003c/p\u003e\n      \u003c/div\u003e\n      \n      {Object.keys(uploads).length \u003e 0 \u0026\u0026 (\n        \u003cdiv className\u003d\"mt-8 space-y-2\"\u003e\n          {Object.entries(uploads).map(([name, progress]) \u003d\u003e (\n            \u003cdiv key\u003d{name} className\u003d\"w-full bg-slate-800 rounded-full h-2\"\u003e\n              \u003cdiv className\u003d\"bg-blue-600 h-2 rounded-full\" style\u003d{{ width: `${progress}%` }} /\u003e\n            \u003c/div\u003e\n          ))}\n        \u003c/div\u003e\n      )}\n    \u003c/div\u003e\n  );\n};\n```\n\n### 4. Step 3: Processing Sidebar Controls\n`src/features/Process/ControlsSidebar.tsx`\n```tsx\nimport React from \u0027react\u0027;\nimport * as Switch from \u0027@radix-ui/react-switch\u0027;\n\nexport const ControlsSidebar \u003d ({ config, setConfig }: any) \u003d\u003e {\n  return (\n    \u003caside className\u003d\"w-80 border-r border-slate-800 p-6 h-full bg-slate-950 overflow-y-auto\"\u003e\n      \u003ch2 className\u003d\"text-xl font-bold mb-6\"\u003eProcessing Controls\u003c/h2\u003e\n      \n      \u003cdiv className\u003d\"space-y-6\"\u003e\n        \u003csection\u003e\n          \u003clabel className\u003d\"text-sm font-semibold text-slate-400 uppercase\"\u003eAI Content\u003c/label\u003e\n          \u003cdiv className\u003d\"mt-3 space-y-4\"\u003e\n            \u003cbutton className\u003d\"w-full bg-slate-800 p-3 rounded-lg text-left hover:bg-slate-700\"\u003e\n              Generate SEO Title\n            \u003c/button\u003e\n            \u003cbutton className\u003d\"w-full bg-slate-800 p-3 rounded-lg text-left hover:bg-slate-700\"\u003e\n              Write Description\n            \u003c/button\u003e\n          \u003c/div\u003e\n        \u003c/section\u003e\n\n        \u003csection\u003e\n          \u003clabel className\u003d\"text-sm font-semibold text-slate-400 uppercase\"\u003eImage Enhancements\u003c/label\u003e\n          \u003cdiv className\u003d\"mt-3 flex items-center justify-between\"\u003e\n            \u003cspan\u003eBackground Removal\u003c/span\u003e\n            \u003cSwitch.Root className\u003d\"w-11 h-6 bg-slate-700 rounded-full relative data-[state\u003dchecked]:bg-blue-600\"\u003e\n              \u003cSwitch.Thumb className\u003d\"block w-5 h-5 bg-white rounded-full transition-transform translate-x-0.5 data-[state\u003dchecked]:translate-x-[20px]\" /\u003e\n            \u003c/Switch.Root\u003e\n          \u003c/div\u003e\n        \u003c/section\u003e\n\n        \u003csection\u003e\n          \u003clabel className\u003d\"text-sm font-semibold text-slate-400 uppercase\"\u003eWatermark\u003c/label\u003e\n          \u003cinput \n            type\u003d\"text\" \n            placeholder\u003d\"Custom text...\"\n            className\u003d\"w-full mt-2 bg-slate-900 border border-slate-700 p-2 rounded\"\n          /\u003e\n        \u003c/section\u003e\n\n        \u003cbutton className\u003d\"w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-bold shadow-lg shadow-blue-500/20\"\u003e\n          Process Assets\n        \u003c/button\u003e\n      \u003c/div\u003e\n    \u003c/aside\u003e\n  );\n};\n```\n\n### 5. Backend: Market Detection Logic (Gemini 1.5)\nThis Express route uses the Gemini Pro Vision model to analyze the image and return a JSON market analysis.\n\n`server/routes/detect.ts`\n```typescript\nimport { GoogleGenerativeAI } from \"@google/generative-ai\";\n\nconst genAI \u003d new GoogleGenerativeAI(process.env.GEMINI_API_KEY);\n\nexport const analyzeMarket \u003d async (imageUrl: string) \u003d\u003e {\n  const model \u003d genAI.getGenerativeModel({ model: \"gemini-1.5-pro\" });\n\n  const prompt \u003d `\n    Analyze this product image. Provide a JSON response:\n    {\n      \"category\": \"string\",\n      \"bestMarkets\": [{ \"name\": \"Etsy\", \"confidence\": 95, \"reason\": \"Handmade look\" }],\n      \"suggestedPrice\": number,\n      \"seoTags\": [\"string\"],\n      \"targetAudience\": \"string\"\n    }\n  `;\n\n  // Fetch image as inlineData and send to Gemini\n  const result \u003d await model.generateContent([prompt, { inlineData: { data: base64Img, mimeType: \"image/jpeg\" } }]);\n  const response \u003d await result.response;\n  return JSON.parse(response.text());\n};\n```\n\n### 6. Step 4: Client-Side ZIP Export\nUsing `JSZip` to bundle assets without overloading the server.\n\n`src/hooks/useExport.ts`\n```typescript\nimport JSZip from \u0027jszip\u0027;\nimport { saveAs } from \u0027file-saver\u0027;\n\nexport const useExport \u003d () \u003d\u003e {\n  const exportAll \u003d async (files: FileAsset[], sessionName: string) \u003d\u003e {\n    const zip \u003d new JSZip();\n    const folder \u003d zip.folder(sessionName);\n\n    const downloadPromises \u003d files.map(async (file) \u003d\u003e {\n      const response \u003d await fetch(file.storageUrl);\n      const blob \u003d await response.blob();\n      folder?.file(file.originalName, blob);\n    });\n\n    await Promise.all(downloadPromises);\n    const content \u003d await zip.generateAsync({ type: \"blob\" });\n    saveAs(content, `${sessionName}-marketflow-export.zip`);\n  };\n\n  return { exportAll };\n};\n```\n\n### 7. Core Application Layout (Main Wrapper)\n`src/App.tsx`\n```tsx\nimport { Sidebar } from \u0027./components/Navigation/Sidebar\u0027;\nimport { TopBar } from \u0027./components/Navigation/TopBar\u0027;\nimport { StepIndicator } from \u0027./components/Wizard/StepIndicator\u0027;\n\nconst App \u003d () \u003d\u003e {\n  const [step, setStep] \u003d useState(1);\n\n  return (\n    \u003cdiv className\u003d\"flex h-screen bg-black text-white overflow-hidden\"\u003e\n      \u003cSidebar /\u003e\n      \n      \u003cmain className\u003d\"flex-1 flex flex-col relative\"\u003e\n        \u003cTopBar /\u003e\n        \u003cStepIndicator currentStep\u003d{step} /\u003e\n        \n        \u003cdiv className\u003d\"flex-1 overflow-auto p-8\"\u003e\n          {step \u003d\u003d\u003d 1 \u0026\u0026 \u003cUploadZone onComplete\u003d{() \u003d\u003e setStep(2)} /\u003e}\n          {step \u003d\u003d\u003d 2 \u0026\u0026 \u003cMarketDetectionView onProceed\u003d{() \u003d\u003e setStep(3)} /\u003e}\n          {step \u003d\u003d\u003d 3 \u0026\u0026 \u003cProcessingLayout /\u003e}\n          {step \u003d\u003d\u003d 4 \u0026\u0026 \u003cExportGallery /\u003e}\n          {step \u003d\u003d\u003d 5 \u0026\u0026 \u003cShareHub /\u003e}\n        \u003c/div\u003e\n      \u003c/main\u003e\n    \u003c/div\u003e\n  );\n};\n```\n\n### Critical Implementation Notes:\n1.  **AI Rate Limiting:** Since Gemini 1.5 Pro has limits, implement a `p-limit` on the backend to process only 3 images concurrently if a batch of 50 is uploaded.\n2.  **Web Workers:** For the Image Enhancer toggle (background removal), consider using `@imgly/background-removal` which runs in-browser via WASM to save server costs.\n3.  **Firebase Security:** Ensure your Firestore rules only allow `request.auth.uid \u003d\u003d resource.data.userId` for session access.\n4.  **Real-time Logs:** Use a `Subject` or `EventEmitter` in your processing service to push status updates to the \"Live processing log\" UI component.\n\nTo get started, initialize your project with `vite`, install dependencies (`firebase`, `lucide-react`, `jszip`, `framer-motion`, `@tanstack/react-query`), and set up your Firebase console with Storage and Firestore enabled.",
+      "role": "model",
+      "finishReason": "STOP",
+      "tokenCount": 2749,
+      "parts": [{
+        "text": "This is a comprehensive"
+      }, {
+        "text": " technical blueprint and implementation guide for your **MarketFlow AI** platform. Given the scale, I will provide the core architecture, the"
+      }, {
+        "text": " essential React components for the 5-step wizard, and the backend integration logic for the AI Market Detection.\n\n### 1"
+      }, {
+        "text": ". Project Structure\n```text\n/src\n  /api             # Backend Express routes \u0026 AI logic\n  /components"
+      }, {
+        "text": "      # Reusable UI (Button, Input, Dropzone)\n  /context         # Session \u0026 Auth state management"
+      }, {
+        "text": "\n  /features        # Core modules (Upload, Detect, Process, Export, Share)\n  /hooks           "
+      }, {
+        "text": "# Custom hooks (useProcessing, useMarketDetect)\n  /services        # Firebase \u0026 Gemini API config\n  /types"
+      }, {
+        "text": "           # TypeScript interfaces (Session, FileAsset, etc.)\n  App.tsx          # Main Router \u0026 Layout\n"
+      }, {
+        "text": "```\n\n### 2. Data Models (Typescript)\n`src/types/index.ts`\n```typescript\nexport"
+      }, {
+        "text": " interface Market {\n  name: string;\n  platform: \u0027eBay\u0027 | \u0027Etsy\u0027 | \u0027Amazon\u0027 | \u0027"
+      }, {
+        "text": "Shopify\u0027 | \u0027Social\u0027;\n  confidenceScore: number;\n  suggestedPrice: number;\n  "
+      }, {
+        "text": "tags: string[];\n}\n\nexport interface FileAsset {\n  id: string;\n  sessionId: string;\n"
+      }, {
+        "text": "  originalName: string;\n  type: \u0027image\u0027 | \u0027video\u0027 | \u0027document\u0027;\n  storage"
+      }, {
+        "text": "Url: string;\n  thumbnailUrl: string;\n  detectedCategory?: string;\n  processingStatus: \u0027"
+      }, {
+        "text": "pending\u0027 | \u0027processing\u0027 | \u0027done\u0027 | \u0027error\u0027;\n  processedOutputs: string[]; // URLs\n}\n\nexport"
+      }, {
+        "text": " interface Session {\n  id: string;\n  userId: string;\n  name: string;\n  createdAt"
+      }, {
+        "text": ": number;\n  status: \u0027uploading\u0027 | \u0027detecting\u0027 | \u0027processing\u0027 | \u0027complete\u0027;"
+      }, {
+        "text": "\n  detectedMarkets: Market[];\n  files: FileAsset[];\n}\n```\n\n### 3. Step "
+      }, {
+        "text": "1 \u0026 2: File Unloader \u0026 Detect Engine\nThis component handles the drag-and-drop and triggers the AI analysis via"
+      }, {
+        "text": " a backend proxy.\n\n`src/features/Upload/UploadZone.tsx`\n```tsx\nimport React, { useCallback"
+      }, {
+        "text": ", useState } from \u0027react\u0027;\nimport { useDropzone } from \u0027react-dropzone\u0027;\nimport {"
+      }, {
+        "text": " storage } from \u0027../../services/firebase\u0027;\nimport { ref, uploadBytesResumable, getDownloadURL } from"
+      }, {
+        "text": " \u0027firebase/storage\u0027;\nimport { Upload, FileText, Image as ImageIcon, Loader2 } from \u0027lucide-react"
+      }, {
+        "text": "\u0027;\n\nexport const UploadZone \u003d ({ sessionId, onComplete }: { sessionId: string, onComplete: () \u003d\u003e void }) \u003d\u003e"
+      }, {
+        "text": " {\n  const [uploads, setUploads] \u003d useState\u003cRecord\u003cstring, number\u003e\u003e({});\n\n  const onDrop"
+      }, {
+        "text": " \u003d useCallback(async (acceptedFiles: File[]) \u003d\u003e {\n    const uploadPromises \u003d acceptedFiles.map(async"
+      }, {
+        "text": " (file) \u003d\u003e {\n      const storageRef \u003d ref(storage, `uploads/${sessionId}/${file.name}`);\n      const"
+      }, {
+        "text": " uploadTask \u003d uploadBytesResumable(storageRef, file);\n\n      return new Promise((resolve, reject) \u003d\u003e {"
+      }, {
+        "text": "\n        uploadTask.on(\u0027state_changed\u0027, \n          (snapshot) \u003d\u003e {\n            const progress \u003d (snapshot."
+      }, {
+        "text": "bytesTransferred / snapshot.totalBytes) * 100;\n            setUploads(prev \u003d\u003e ({"
+      }, {
+        "text": " ...prev, [file.name]: progress }));\n          },\n          reject,\n          async () \u003d\u003e {\n            const url"
+      }, {
+        "text": " \u003d await getDownloadURL(uploadTask.snapshot.ref);\n            // Call Backend to save FileAsset to Firestore\n            resolve"
+      }, {
+        "text": "(url);\n          }\n        );\n      });\n    });\n\n    await Promise.all(uploadPromises"
+      }, {
+        "text": ");\n    onComplete();\n  }, [sessionId]);\n\n  const { getRootProps, getInputProps, isDragActive }"
+      }, {
+        "text": " \u003d useDropzone({ onDrop });\n\n  return (\n    \u003cdiv {...getRootProps()} className\u003d\"border-"
+      }, {
+        "text": "2 border-dashed border-slate-700 rounded-xl p-12 bg-slate-900/"
+      }, {
+        "text": "50 hover:bg-slate-800/50 transition-all cursor-pointer\"\u003e\n      \u003cinput"
+      }, {
+        "text": " {...getInputProps()} /\u003e\n      \u003cdiv className\u003d\"flex flex-col items-center\"\u003e\n        \u003cUpload className"
+      }, {
+        "text": "\u003d\"w-12 h-12 text-blue-500 mb-4\" /\u003e\n        \u003c"
+      }, {
+        "text": "p className\u003d\"text-lg font-medium\"\u003eDrag \u0026 drop product assets\u003c/p\u003e\n        \u003cp className\u003d\""
+      }, {
+        "text": "text-slate-400 text-sm\"\u003eImages, Videos, PDFs (Max 50 files)\u003c/p\u003e\n"
+      }, {
+        "text": "      \u003c/div\u003e\n      \n      {Object.keys(uploads).length \u003e 0 \u0026\u0026 (\n        \u003cdiv className"
+      }, {
+        "text": "\u003d\"mt-8 space-y-2\"\u003e\n          {Object.entries(uploads).map(([name, progress])"
+      }, {
+        "text": " \u003d\u003e (\n            \u003cdiv key\u003d{name} className\u003d\"w-full bg-slate-800 rounded-full"
+      }, {
+        "text": " h-2\"\u003e\n              \u003cdiv className\u003d\"bg-blue-600 h-2 rounded-full\""
+      }, {
+        "text": " style\u003d{{ width: `${progress}%` }} /\u003e\n            \u003c/div\u003e\n          ))}\n        \u003c/div\u003e\n      )}\n    "
+      }, {
+        "text": "\u003c/div\u003e\n  );\n};\n```\n\n### 4. Step 3: Processing Sidebar Controls\n`src/features"
+      }, {
+        "text": "/Process/ControlsSidebar.tsx`\n```tsx\nimport React from \u0027react\u0027;\nimport * as Switch from \u0027@rad"
+      }, {
+        "text": "ix-ui/react-switch\u0027;\n\nexport const ControlsSidebar \u003d ({ config, setConfig }: any) \u003d\u003e {\n  "
+      }, {
+        "text": "return (\n    \u003caside className\u003d\"w-80 border-r border-slate-800 p-6 h-"
+      }, {
+        "text": "full bg-slate-950 overflow-y-auto\"\u003e\n      \u003ch2 className\u003d\"text-xl font-bold"
+      }, {
+        "text": " mb-6\"\u003eProcessing Controls\u003c/h2\u003e\n      \n      \u003cdiv className\u003d\"space-y-6\"\u003e\n        \u003c"
+      }, {
+        "text": "section\u003e\n          \u003clabel className\u003d\"text-sm font-semibold text-slate-400 uppercase\"\u003eAI Content"
+      }, {
+        "text": "\u003c/label\u003e\n          \u003cdiv className\u003d\"mt-3 space-y-4\"\u003e\n            \u003cbutton className\u003d\""
+      }, {
+        "text": "w-full bg-slate-800 p-3 rounded-lg text-left hover:bg-slate-"
+      }, {
+        "text": "700\"\u003e\n              Generate SEO Title\n            \u003c/button\u003e\n            \u003cbutton className\u003d\"w-full bg-"
+      }, {
+        "text": "slate-800 p-3 rounded-lg text-left hover:bg-slate-700\"\u003e"
+      }, {
+        "text": "\n              Write Description\n            \u003c/button\u003e\n          \u003c/div\u003e\n        \u003c/section\u003e\n\n        \u003csection\u003e\n          "
+      }, {
+        "text": "\u003clabel className\u003d\"text-sm font-semibold text-slate-400 uppercase\"\u003eImage Enhancements\u003c/label"
+      }, {
+        "text": "\u003e\n          \u003cdiv className\u003d\"mt-3 flex items-center justify-between\"\u003e\n            \u003cspan\u003eBackground Removal\u003c/span\u003e\n"
+      }, {
+        "text": "            \u003cSwitch.Root className\u003d\"w-11 h-6 bg-slate-700 rounded-full"
+      }, {
+        "text": " relative data-[state\u003dchecked]:bg-blue-600\"\u003e\n              \u003cSwitch.Thumb className\u003d\"block"
+      }, {
+        "text": " w-5 h-5 bg-white rounded-full transition-transform translate-x-0.5 data-["
+      }, {
+        "text": "state\u003dchecked]:translate-x-[20px]\" /\u003e\n            \u003c/Switch.Root\u003e\n          \u003c/div\u003e\n        "
+      }, {
+        "text": "\u003c/section\u003e\n\n        \u003csection\u003e\n          \u003clabel className\u003d\"text-sm font-semibold text-slate-"
+      }, {
+        "text": "400 uppercase\"\u003eWatermark\u003c/label\u003e\n          \u003cinput \n            type\u003d\"text\" \n            placeholder\u003d\""
+      }, {
+        "text": "Custom text...\"\n            className\u003d\"w-full mt-2 bg-slate-900 border border-slate-"
+      }, {
+        "text": "700 p-2 rounded\"\n          /\u003e\n        \u003c/section\u003e\n\n        \u003cbutton className\u003d\"w-full"
+      }, {
+        "text": " bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-"
+      }, {
+        "text": "bold shadow-lg shadow-blue-500/20\"\u003e\n          Process Assets\n        \u003c/button\u003e\n      "
+      }, {
+        "text": "\u003c/div\u003e\n    \u003c/aside\u003e\n  );\n};\n```\n\n### 5. Backend: Market Detection Logic ("
+      }, {
+        "text": "Gemini 1.5)\nThis Express route uses the Gemini Pro Vision model to analyze the image and return a JSON"
+      }, {
+        "text": " market analysis.\n\n`server/routes/detect.ts`\n```typescript\nimport { GoogleGenerativeAI } from \"@"
+      }, {
+        "text": "google/generative-ai\";\n\nconst genAI \u003d new GoogleGenerativeAI(process.env.GEMINI_API_"
+      }, {
+        "text": "KEY);\n\nexport const analyzeMarket \u003d async (imageUrl: string) \u003d\u003e {\n  const model \u003d genAI.getGenerative"
+      }, {
+        "text": "Model({ model: \"gemini-1.5-pro\" });\n\n  const prompt \u003d `\n    Analyze this product"
+      }, {
+        "text": " image. Provide a JSON response:\n    {\n      \"category\": \"string\",\n      \"bestMarkets\": [{"
+      }, {
+        "text": " \"name\": \"Etsy\", \"confidence\": 95, \"reason\": \"Handmade look\" }],\n      "
+      }, {
+        "text": "\"suggestedPrice\": number,\n      \"seoTags\": [\"string\"],\n      \"targetAudience\": \""
+      }, {
+        "text": "string\"\n    }\n  `;\n\n  // Fetch image as inlineData and send to Gemini\n  const result"
+      }, {
+        "text": " \u003d await model.generateContent([prompt, { inlineData: { data: base64Img, mimeType:"
+      }, {
+        "text": " \"image/jpeg\" } }]);\n  const response \u003d await result.response;\n  return JSON.parse("
+      }, {
+        "text": "response.text());\n};\n```\n\n### 6. Step 4: Client-Side ZIP Export\nUsing"
+      }, {
+        "text": " `JSZip` to bundle assets without overloading the server.\n\n`src/hooks/useExport.ts`\n"
+      }, {
+        "text": "```typescript\nimport JSZip from \u0027jszip\u0027;\nimport { saveAs } from \u0027file-saver\u0027;\n\nexport const"
+      }, {
+        "text": " useExport \u003d () \u003d\u003e {\n  const exportAll \u003d async (files: FileAsset[], sessionName: string) \u003d\u003e {\n"
+      }, {
+        "text": "    const zip \u003d new JSZip();\n    const folder \u003d zip.folder(sessionName);\n\n    const downloadPromises"
+      }, {
+        "text": " \u003d files.map(async (file) \u003d\u003e {\n      const response \u003d await fetch(file.storageUrl);"
+      }, {
+        "text": "\n      const blob \u003d await response.blob();\n      folder?.file(file.originalName, blob);\n    });"
+      }, {
+        "text": "\n\n    await Promise.all(downloadPromises);\n    const content \u003d await zip.generateAsync({ type: \""
+      }, {
+        "text": "blob\" });\n    saveAs(content, `${sessionName}-marketflow-export.zip`);\n  };\n\n"
+      }, {
+        "text": "  return { exportAll };\n};\n```\n\n### 7. Core Application Layout (Main Wrapper)\n`src"
+      }, {
+        "text": "/App.tsx`\n```tsx\nimport { Sidebar } from \u0027./components/Navigation/Sidebar\u0027;\nimport { TopBar }"
+      }, {
+        "text": " from \u0027./components/Navigation/TopBar\u0027;\nimport { StepIndicator } from \u0027./components/Wizard/StepIndicator\u0027;"
+      }, {
+        "text": "\n\nconst App \u003d () \u003d\u003e {\n  const [step, setStep] \u003d useState(1);\n\n  return (\n"
+      }, {
+        "text": "    \u003cdiv className\u003d\"flex h-screen bg-black text-white overflow-hidden\"\u003e\n      \u003cSidebar /\u003e"
+      }, {
+        "text": "\n      \n      \u003cmain className\u003d\"flex-1 flex flex-col relative\"\u003e\n        \u003cTopBar /\u003e\n        \u003cStep"
+      }, {
+        "text": "Indicator currentStep\u003d{step} /\u003e\n        \n        \u003cdiv className\u003d\"flex-1 overflow-auto p-8"
+      }, {
+        "text": "\"\u003e\n          {step \u003d\u003d\u003d 1 \u0026\u0026 \u003cUploadZone onComplete\u003d{() \u003d\u003e setStep(2)} /\u003e}\n          {"
+      }, {
+        "text": "step \u003d\u003d\u003d 2 \u0026\u0026 \u003cMarketDetectionView onProceed\u003d{() \u003d\u003e setStep(3)} /\u003e}\n          {step \u003d\u003d\u003d 3 \u0026\u0026"
+      }, {
+        "text": " \u003cProcessingLayout /\u003e}\n          {step \u003d\u003d\u003d 4 \u0026\u0026 \u003cExportGallery /\u003e}\n          {step \u003d\u003d\u003d 5 \u0026\u0026"
+      }, {
+        "text": " \u003cShareHub /\u003e}\n        \u003c/div\u003e\n      \u003c/main\u003e\n    \u003c/div\u003e\n  );\n};\n```\n\n###"
+      }, {
+        "text": " Critical Implementation Notes:\n1.  **AI Rate Limiting:** Since Gemini 1.5 Pro has limits, implement"
+      }, {
+        "text": " a `p-limit` on the backend to process only 3 images concurrently if a batch of 50 is uploaded."
+      }, {
+        "text": "\n2.  **Web Workers:** For the Image Enhancer toggle (background removal), consider using `@imgly/background"
+      }, {
+        "text": "-removal` which runs in-browser via WASM to save server costs.\n3.  **Firebase Security:** Ensure"
+      }, {
+        "text": " your Firestore rules only allow `request.auth.uid \u003d\u003d resource.data.userId` for session access.\n4"
+      }, {
+        "text": ".  **Real-time Logs:** Use a `Subject` or `EventEmitter` in your processing service to push status"
+      }, {
+        "text": " updates to the \"Live processing log\" UI component.\n\nTo get started, initialize your project with `vite`, install dependencies ("
+      }, {
+        "text": "`firebase`, `lucide-react`, `jszip`, `framer-motion`, `@tanstack/react-query`), and"
+      }, {
+        "text": " set up your Firebase console with Storage and Firestore enabled."
+      }, {
+        "text": "",
+        "thoughtSignature": "EuARCt0RAb4+9vt2pDRn75k9AOw2D8RkJTgl1B26L1A3AQsd8nn341kdUt54KU8UKAH23iaoD9xTEbDpbtGJiaYIh4pldzUHCjGLlXAa/7JvjwqtmmnJtwfO32jIBCBaECk7BSl55PonZ12/Xym9QJgKcI8OduIZxGJLgegINxqopsv+9VFKvd1h/7Ql5K3oCI0QU8sTEBTnJ31RSuAt/NzLgczLoDkPRE8zfUC8LO6OgdEJM8seOFd693Grr/cn66nUnBdVhKWysWF0RuiJtEu6bL41abxd8MrrGL3zn6U7jYjiLH4tUGPlp5Eiin1ox3CjcRKgBB4bNEscSidUqffSgJ57yV6xV+rb36Kagmbr6K/+OYnLAFcPcqouSX+3724QlBityhKhdxfumuRzAyznLKI4zyGNfWjmfKmEDocWzfULuCUIET2v8shlqdonO/J+YnYXXhkNlB0zH0dg9LdTYGck+0YkIPqXbAdGbd5yd67eupFzin5cU+K5EKfF6uooxf4xpZAqzfc4PQF7ZXSEgNUaqN2nNYBa3NHOt5k9r66C9DyuM9HrieyrG2+vz0PKbDHU7Rr/PFzXeax6/EPQvH7CPnpON7+XNmVh2oy509wm1l54zegaCj1IYmTCH64JrUubsLeyq4vRSYue5PHRozMrB3GgPTIEbS6npBjPIvF6FyUWpyXj9pv1a+7xpDB4K1RejkYrPuQioggSAvYGcjpLQTAqGko6hOIlefM+2w6mudLmd3vZOpUjmK9OkcLC0/IJJiHhSTQkq2ZyNGnPinFIUISV0svWM6ASd0tG2tTnxPfrayuI4X/hmBJpKcTxAaqK5MRHNeKf/xj6iEnqULrJJAAzXliUzVgYa0mWhBBXXKqZUb2jrKp14nsoQHpjWs5QmVcu7ctqmxpGX7WYwUWdVNBWSwfSzfZFJwoNO6cuCEuKkCzuiDYqdmo0CPUhB4Xm5vVRsKJl14Q3sAQOIkNL89NSn4ZE6gfsPOTE+knnuFcf2YdWiADP4R9a8uW1qwGxGmBiq/mjW0culM/v9i8JODlH4u5822z76SGRd3bTjmGHsscoX6TbSqgx+nWgcoXXK8efFgWaj37gp8LLNWv/8FomRQdvYtLIwj2wsrNZE2oKsnirrA81Tkw9LNzIHnuu+/pRwJWLuqINMElI7zkulWg6x3e8opBmx5J4n0y2q8FPnKSnxAuQaPIKC3Ev1ezacYjPdVyNdTxDv8d2KdVyiPuH+BvdZwv1+L5k3rytij/gg2xmfFR0s1aKSYJMbJz/wyu8itFDDH51opo77CfjDoqDv2o0qpdKPZGNX1Yk6VWOW4Y9iwXmHYVVRFGhMbSlGvAFT1fMSqIKnolAu+IChLmpHlTmq8+Zvy3J2BlxJaRpS9H6WKU1Kqosl6bw4cCkBvHrIeP/Nt891PG0cdsQMzAxSfOD+R4rSSF+H42YspwUcW+9cWED373zNr9f2Xc/xvAHQcuWjcfMErAZD6RUhy/exCTeaAbKZPCVXHHH/D7G6vdBalAO2xWiOCL6VY/48pybLb05zs2aWKIYd4qFt6Z1oIn3is7A4qV9ePzyeuxbEP8aqgCQEDIt7x0qv1+r5BvdJOPl7ZHh+r5YS14UGk886Tu6Bf3y5fvTtH34HN/ejYlakQTQSM4LNA5B5TZwPznc/d8AFE4bhmec0qwAYbo77/BWflaejzKm5/DJfnACa7o5Imndvwj4s3BF+MIKGwgeHMIlS8mu3841RKxqFYYcJ8gdEcMNwRIpMNNiHulN9nHsSa7+uh51k1+wELPQvtYA4kRNCzBgOdjdUUDOAYD0c5lNWiw9jozqJG2rSYqE6S2snS2b5zPuxTITBRIx2geLL/7KIqpG4qQ8bdpBh48LUsBIBapZEo1VSnY+X+cO4/TPJ6AINcQxe/sGtPNejaZfhDNMfJ05jBM9rBb/tKg4TnqlQZ01Ptl8Vl5uty1UOzCxpfnCja3eR6bpj/SduOnvNzJDJzGNT4C6enSKybyCIHucSboypRCzVdi1Ivt8CW/UZqQ/gPLDcM4y9/kUZMf4N34pKm9cS37LdvhElcEnOK/15pHjf0fRS+uAZ1OZdJDfytJiZ8JHfaedW6p/hU4HErh1v05Ni1jXSJkc3KvGT1aDhnLs2VYz6ea30R2zdZZqqJhJeYRRITz1r7BOC0DAcYwJArBejr9MW9z5JnbxWKcposbjW1jnlnJEDyTV5JR8KMRxqLxPshvaSBQykQBx+BbBmICfPznC+4n+jmT89JHaFWevAHm25OFNNPGEIR5Q+YXRj8Zzx6gyTo4O3Q0sn+jDduMMoX55rsLCCr0yMPZgMXrqeqbIG/+KPlt3l+xNRSak2m8OBiMQjGkv+AhfgQJb9Q0Xce1PIGFLXyEH+KwAqdPED4KCyIKHpYCjAyDJDTaLCIRSxWVBLTxcR4JBkBT9DoouNt5Tcl7SrUjpYqO9ZDoWeBkHxwx5bqvnWJ050EznDr+Lkqy3N4ikfsGExi+7RVNsmJjucHPhF0NyAnbom2Eds4HqKP2V38eoPJlVnqmSi5v9LRqvXSG7wH28w7QbO3mLoLnvPlu5X0OFVZ9HIpv85xxJoe5Mg2ilDqrq6Zmv2narntm9evgN2BvRIqj2uKm0MYpSmzczy2IPuui90pNI0aHNt9Zg0Hg+57KrhKKycAItrSgL1yYMAWILuyXNgFg5ioioIo6Wv6470WQDY4pm02Oz1VZDxxqkKRSkbztiDIBFRj+0Ci9vdGQioDQ05zFZPKBSkh3Gd9W8cmj0uIJAqqxSnpOZPB92pDfzf8EbXZ3JNweqea1qj/lOjocjMq6J7OmTJxswD2l8ioXFm7bGDglOLpCCX52Hx6Yl+OiC9CqbJECG9LGUDImhDQ0FmFCLQsOCtpCQTMZG01Afg4yj6ulWp71fVusHinowXkCAFQ+E34mRhxOHhKh+RhglIuyuIZxo4HIiHBWZFiXvRA4IwKF1ZvwWi86CF1GuM/kTbjLzk1JL5i+07oFmGJKSuzNnnKY25Q=="
+      }],
+      "createTime": "2026-03-27T06:08:49.402Z"
+    }],
+    "pendingInputs": [{
+      "text": "",
+      "role": "user"
+    }]
+  }
+}
