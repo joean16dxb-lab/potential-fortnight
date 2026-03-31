@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="style.css">
+<script src="app.js"></script>
 {
   "name": "vapor-sense-ai",
   "version": "1.0.0",
