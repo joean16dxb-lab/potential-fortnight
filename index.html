@@ -1,4 +1,33 @@
-{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vapor Sense AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Your app content goes here -->
+  <div id="app"></div>
+
+  <!-- Link your JS file -->
+  <script src="app.js"></script>
+
+</body>
+</html>
+```
+
+> Replace `style.css` and `app.js` with your **actual file names**
+
+---
+
+## 📁 Your Project Should Look Like This:
+```
+vapor-sense-ai/
+├── index.html   ← CREATE THIS (Vercel's entry point)
+├── app.js       ← your existing JS file
+└── vercel.json  ← optional{
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
